@@ -1,0 +1,14 @@
+bool valid(struct TreeNode *root,long min,long max){
+    struct TreeNode *ctr=root;
+    if(ctr==NULL) {
+        return true;
+    }
+    if(ctr->val >=max || ctr->val <=min) {
+        return false;
+    }
+    return valid(ctr->left,min,ctr->val) && valid(ctr->right,ctr->val,max);
+}
+bool isValidBST(struct TreeNode* root){
+      struct TreeNode *ctr=root;
+    return valid(ctr,LONG_MIN,LONG_MAX);
+      }
