@@ -1,0 +1,62 @@
+class Solution {
+    public boolean haveConflict(String[] event1, String[] event2) {
+        int SH1=Integer.parseInt(event1[0].substring(0,2));
+        int SM1=Integer.parseInt(event1[0].substring(3,5));
+        int EH1=Integer.parseInt(event1[1].substring(0,2));
+        int EM1=Integer.parseInt(event1[1].substring(3,5));
+        int SH2=Integer.parseInt(event2[0].substring(0,2));
+        int SM2=Integer.parseInt(event2[0].substring(3,5));
+        int EH2=Integer.parseInt(event2[1].substring(0,2));
+        int EM2=Integer.parseInt(event2[1].substring(3,5));
+        
+        int hash1[]=new int[1440];
+        int time,hour=SH1,min=SM1;
+        while(hour<EH1)
+        {
+         time=hour*60;
+         time+=min;
+         hash1[time]=1;
+         min++;
+         if(min==60)
+         {
+           hour++;
+           min=0;
+         }
+        }
+        while(min<=EM1)
+        {
+            time=hour*60;
+            time+=min;
+            hash1[time]=1;
+            min++;
+        }
+        hour=SH2;
+        min=SM2;
+        while(hour<EH2)
+        {
+         time=hour*60;
+         time+=min;
+         if(hash1[time]==1)
+         {
+             return true;
+         }
+         min++;
+         if(min==60)
+         {
+          hour++;
+          min=0;
+         }
+        }
+        while(min<=EM2)
+        {
+         time=hour*60;
+         time+=min;
+         if(hash1[time]==1)
+         {
+            return true;
+         }
+          min++;
+        }
+        return false;
+    }
+}
